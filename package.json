@@ -1,0 +1,23 @@
+{
+  "name": "restful",
+  "version": "0.0.0",
+  "description": "BPR - RESTful API Server for MySQL",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "BPR",
+    "restfull"
+  ],
+  "author": "Joko Wandyatmono",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
