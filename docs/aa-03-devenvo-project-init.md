@@ -87,8 +87,6 @@ Remote repository yang saya gunakan adalah Github.
     found 0 vulnerabilities
     ```
 
-**`12:46`**
-
 ## Preparation for Git And Push to Git
 
 0. Git Version
@@ -136,7 +134,9 @@ Remote repository yang saya gunakan adalah Github.
     nothing added to commit but untracked files present (use "git add" to track)
     ```
 
-4. First Revision
+## First Revision
+
+0. Stage
 
     ```bash
     $ git add .
@@ -171,59 +171,68 @@ Remote repository yang saya gunakan adalah Github.
     Saya lupa untuk mengecualikan `node_modules`
 
     ```bash
+    $ git rm -r --cached node_modules/
+    $ touch .gitignore
+    $ echo "/node_modules" > .gitignore
+    $ git add .
+    wandyatmono@ubuntu-devenvo:~/projects/bpr/restful$ git status
+    On branch master
+
+    Initial commit
+
+    Changes to be committed:
+    (use "git rm --cached <file>..." to unstage)
+
+        new file:   .gitignore
+        new file:   README.md
+        new file:   docs/aa-00-devenvo.md
+        new file:   docs/aa-01-devenvo-check.md
+        new file:   docs/aa-02-devenvo-mysql.md
+        new file:   docs/aa-03-devenvo-project-init.md
+        new file:   docs/aa-04-devenvo-repository.md
+        new file:   docs/figures/aa-03-a-create-new.png
+        new file:   docs/figures/aa-03-b-form.png
+        new file:   docs/figures/aa-03-c-done.png
+        new file:   package-lock.json
+        new file:   package.json
+    ```
+
+1. First Commit
+
+    ```bash
     $ git commit -m "first commit"
     $ git remote add origin https://github.com/wandyatmono/bpr_restful.git
     ```
 
-4. Push
+2. Push
 
     ```bash
-    git push -u origin master
-    ```
-**`04:36`**
-
-TODO
-
-Pembentukan dabase NANTI
-
-3. Schemma
-
-    ```bash
-    CREATE SCHEMA `bpr` ;
-    ```
-
-4. `users` table
-
-    `bpr.users`
-
-    ```sql
-    DROP TABLE IF EXISTS `users`;
-    CREATE TABLE `users` (
-        `id` int(11) NOT NULL AUTO_INCREMENT,
-        `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-        `account` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-        `password` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-        `role` varchar(2) CHARACTER SET utf8 DEFAULT NULL,
-        `ric` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
-        `bank_acc` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-        `birth_place` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-        `birth_date` date DEFAULT NULL,
-        `gender` tinyint(1) DEFAULT NULL,
-        `notifications` int(11) DEFAULT NULL,
-        `chats` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-        PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+    $ git push -u origin master
+    Username for 'https://github.com': wandyatmono
+    Password for 'https://wandyatmono@github.com': 
+    Counting objects: 16, done.
+    Delta compression using up to 2 threads.
+    Compressing objects: 100% (14/14), done.
+    Writing objects: 100% (16/16), 308.18 KiB | 0 bytes/s, done.
+    Total 16 (delta 0), reused 0 (delta 0)
+    To https://github.com/wandyatmono/bpr_restful.git
+    * [new branch]      master -> master
+    Branch master set up to track remote branch master from origin.
     ```
 
-5. Insert data pengujian
+**`14:39`**
 
-    ```sql
-    LOCK TABLES `users` WRITE;
-    /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-    INSERT INTO `users` VALUES (1,'Freddy Paloh','51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320','51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320','2','1234567890123456','12345678901234','Bogor','1970-10-15',1,2345,'12'),(2,'Lani Husadawati','41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd','41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd','30','1234567890123456','12345678901234','Solo','1986-08-17',0,12,'564'),(3,'Wongso Hermanto','c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c','c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c','0','1234567890123456','12345678901234','Solo','1970-10-15',1,656,'0'),(4,'Yusnita Sri Sundari','e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10','e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10','31','1234567890123456','12345678901234','Sukoharjo','1990-04-28',0,0,'45'),(5,'Andi Pratiknyo','180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e','180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e','30','1234567890123456','12345678901234','Tangerang','1970-07-25',1,34,'4'),(6,'Atika Shubert','7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964','7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964','31','1234567890123456','12345678901234','Klaten','1981-02-13',1,2,'8'),(7,'Perkuat Akseina','c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69','c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69','42','1234567890123456','12345678901234','Malang','1981-07-17',0,17,'20'),(8,'Pracoyo Sejati Leno','043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16','043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16','41','1234567890123456','12345678901234','Solo','1980-06-12',0,0,'2'),(9,'Puji Kaesthi','8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951','8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951','40','1234567890123456','12345678901234','Solo','1986-01-27',1,2,'4'),(10,'Putri Rimba Manangsang','997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59','997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59','40','1234567890123456','12345678901234','Mataram','1987-09-10',1,23,'0'),(11,'Sopan Sumangkir','b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e','b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e','51','1234567890123456','12345678901234','Sibolga','1979-08-17',0,1,'1'),(12,'Urip Wanodyo Sejati','c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906','c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906','31','1234567890123456','12345678901234','Yogya','1987-03-02',1,22,'0');
-    /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-    UNLOCK TABLES;
-    ```
+3. Github Check
 
-**`19:32`**
+    <p align="center">
+        <img src="./figures/aa-03-d-on-github.png" width="100%"/>
+        <br />Figure: aa-03-d-on-github.png
+    </p>
 
+## Second Commit
+
+Saya sudah melakukan commit saat dokumentasi sedang ditulis. Oleh karena itu dokumentasi ini akan saya benahi dibagian akhirnya. 
+
+Hasil editing akan ikut di-commit pada kali commit yang kedua.
+
+**`14:55`**
