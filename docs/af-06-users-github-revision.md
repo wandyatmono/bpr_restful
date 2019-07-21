@@ -5,8 +5,8 @@
 **`23:04`**
 
 ```bash
-$ git add .
+$ # project-root
+$ git add . -A
 $ git commit -m "basic services - sha256, uuid, users and it's avatar."
-$ git remote add origin https://github.com/wandyatmono/bpr_restful.git
 $ git push -u origin master
 ```
