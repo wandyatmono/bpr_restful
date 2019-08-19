@@ -29,7 +29,7 @@ Dimulai dari instalasi express, mysql driver dan body-parser sampai dengan pembu
 
 2. Database Target dan Sebuah Tabel
 
-    Dengan bantuan MySQL-Workbench, dibuat SCHEMA baru bernama `bpr`. Ke dalamnya kemudian dibuat table baru dengan nama `users` sekaligus dengan beberapa dummy-rows.
+    Dengan bantuan MySQL-Workbench, dibuat SCHEMA baru bernama `bpr_learn`. Ke dalamnya kemudian dibuat table baru dengan nama `users` sekaligus dengan beberapa dummy-rows.
 
     Berikut petikan dari SQL-dumps yang saya simpan di `sqldumps/`
 
@@ -41,6 +41,9 @@ Dimulai dari instalasi express, mysql driver dan body-parser sampai dengan pembu
     `bpr.users`
 
     ```sql
+    CREATE DATABASE  IF NOT EXISTS `bpr_learn`;
+    USE `bpr_learn`;
+
     DROP TABLE IF EXISTS `users`;
     CREATE TABLE `users` (
         `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -137,7 +140,7 @@ Dimulai dari instalasi express, mysql driver dan body-parser sampai dengan pembu
         host     : 'localhost',
         user     : 'root',
         password : 'emd230661',
-        database : 'bpr'
+        database : 'bpr_learn'
 
     });
 
@@ -215,6 +218,7 @@ Dimulai dari instalasi express, mysql driver dan body-parser sampai dengan pembu
     exports.ok = function(values, res) {
         var data = {
             'status': 200,
+            'message: 'Success',
             'values': values
         };
         res.json(data);

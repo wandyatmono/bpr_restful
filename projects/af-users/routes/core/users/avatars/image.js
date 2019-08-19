@@ -9,7 +9,7 @@ function getFileName(id) {
 
     return new Promise(resolve => {
         var query = 'SELECT photo ' +
-                    'FROM avatars ' +
+                    'FROM user_avatars ' +
                     'WHERE user = ? && actived = 0;';
         db.query(query,
             [id],

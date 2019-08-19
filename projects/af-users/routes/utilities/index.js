@@ -2,7 +2,10 @@
 
 var utilities = require('express').Router(),
     sha256 = require('./sha256'),
-    uuid = require('./uuid');
+    uuid = require('./uuid'),
+    aes256ctr = require('./aes256ctr');
+
+utilities.use("/aes256ctr", aes256ctr);
 
 utilities.use("/uuid", uuid);
 

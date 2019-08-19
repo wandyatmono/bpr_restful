@@ -1,62 +1,267 @@
-CREATE DATABASE  IF NOT EXISTS `bpr` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bpr`;
--- MySQL dump 10.13  Distrib 5.5.62, for debian-linux-gnu (x86_64)
---
--- Host: 127.0.0.1    Database: bpr
--- ------------------------------------------------------
--- Server version	5.5.62-0ubuntu0.14.04.1
+CREATE DATABASE  IF NOT EXISTS `bpr_users`;
+USE `bpr_users`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `user_roles`;
+CREATE TABLE `user_roles` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`native` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Table structure for table `users`
---
+LOCK TABLES `user_roles` WRITE;
+INSERT INTO `user_roles`
+	VALUES
+		(1,'Developer','Pengembang'),
+		(2,'Application Administrator','Administrator Aplikasi'),
+		(3,'Head of Investment Division','Kabag Investasi'),
+		(4,'Head of Receivables Division','Kabag Piutang'),
+		(5,'Section Chief of Marketing','Kasie Pemasaran'),
+		(6,'Section Chief of Receivables','Kasie Piutang'),
+		(7,'Marketing Officer','Petugas Pemasaran'),
+		(8,'Receivable Collector','Kolektor Piutang');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `user_gender`;
+CREATE TABLE `user_gender` (
+	`id` tinyint(4) NOT NULL,
+	`native` varchar(10) DEFAULT NULL,
+	`name` varchar(10) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_gender` WRITE;
+INSERT INTO `user_gender`
+	VALUES 
+		(0,'female','laki-laki'),
+		(1,'male','perempuan');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `user_religions`;
+CREATE TABLE `user_religions` (
+	`id` tinyint(4) NOT NULL AUTO_INCREMENT,
+	`native` varchar(45) DEFAULT NULL,
+	`name` varchar(45) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+LOCK TABLES `user_religions` WRITE;
+INSERT INTO `user_religions`
+	VALUES
+		(1,'Islam','Islam'),
+		(2,'Roman Catholic','Katolik'),
+		(3,'Christianity','Kristen'),
+		(4,'Hinduism','Hindu'),
+		(5,'Budism','Budha'),
+		(6,'Believism','Kepercayaan');
+UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `account` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `password` varchar(256) CHARACTER SET utf8 DEFAULT NULL,
-  `role` varchar(2) CHARACTER SET utf8 DEFAULT NULL,
-  `ric` varchar(16) CHARACTER SET utf8 DEFAULT NULL,
-  `bank_acc` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `birth_place` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `birth_date` date DEFAULT NULL,
-  `gender` tinyint(1) DEFAULT NULL,
-  `photo` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
+	`id` int(11) NOT NULL,
+	`name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`account` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+	`password` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
+	`role` int(11) DEFAULT NULL,
+	`ric` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+	`birth_place` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`birth_date` date DEFAULT NULL,
+	`gender` tinyint(4) DEFAULT NULL,
+	`faith` tinyint(4) DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	KEY `fk_users_1` (`role`),
+	KEY `fk_users_2_idx` (`faith`),
+	KEY `fk_users_3_idx` (`gender`),
+	CONSTRAINT `fk_users_2` FOREIGN KEY (`faith`) REFERENCES `user_religions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT `fk_users_3` FOREIGN KEY (`gender`) REFERENCES `user_gender` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+	CONSTRAINT `fk_users_1` FOREIGN KEY (`role`) REFERENCES `user_roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Freddy Paloh','51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320','51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320','2','1234567890123456','12345678901234','Bogor','1970-10-15',1,NULL),(2,'Lani Husadawati','41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd','41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd','30','1234567890123456','12345678901234','Solo','1986-08-17',0,NULL),(3,'Wongso Hermanto','c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c','c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c','0','1234567890123456','12345678901234','Solo','1970-10-15',1,NULL),(4,'Yusnita Sri Sundari','e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10','e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10','31','1234567890123456','12345678901234','Sukoharjo','1990-04-28',0,NULL),(5,'Andi Pratiknyo','180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e','180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e','30','1234567890123456','12345678901234','Tangerang','1970-07-25',1,NULL),(6,'Atika Shubert','7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964','7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964','31','1234567890123456','12345678901234','Klaten','1981-02-13',1,NULL),(7,'Perkuat Akseina','c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69','c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69','42','1234567890123456','12345678901234','Malang','1981-07-17',0,NULL),(8,'Pracoyo Sejati Leno','043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16','043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16','41','1234567890123456','12345678901234','Solo','1980-06-12',0,NULL),(9,'Puji Kaesthi','8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951','8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951','40','1234567890123456','12345678901234','Solo','1986-01-27',1,NULL),(10,'Putri Rimba Manangsang','997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59','997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59','40','1234567890123456','12345678901234','Mataram','1987-09-10',1,NULL),(11,'Sopan Sumangkir','b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e','b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e','51','1234567890123456','12345678901234','Sibolga','1979-08-17',0,NULL),(12,'Urip Wanodyo Sejati','c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906','c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906','31','1234567890123456','12345678901234','Yogya','1987-03-02',1,NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+INSERT INTO `users`
+	VALUES 
+		(
+			1,
+			'Joko Wandyatmono',
+			'bf59af91aeb8306261c665d5c9b50941f5242c94245ce7d3bc92bebae7e3d5b1',
+			'bf59af91aeb8306261c665d5c9b50941f5242c94245ce7d3bc92bebae7e3d5b1',
+			1,
+			'1234567890123456',
+			'Solo',
+			'1961-06-23',
+			1,
+			1
+		),
+		(
+			2,
+			'Lani Husadawati',
+			'41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd',
+			'41d2b587f0f0497acd9f17293d22f45f54bc5f0726a3f3d4edf426fe384c11dd',
+			4,
+			'1234567890123456',
+			'Solo',
+			'1986-08-17',
+			0,
+			2
+		),
+		(
+			3,
+			'Wongso Hermanto',
+			'c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c',
+			'c85ad879e6f75b0b4b51de83450e5530bfd3fab85cc67418d2251f134f0ef92c',
+			2,
+			'1234567890123456',
+			'Solo',
+			'1970-10-15',
+			1,
+			3
+		),
+		(
+			4,
+			'Yusnita Sri Sundari',
+			'e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10',
+			'e28bc14ef7ee01d17147dd302d552645fa7f4df30b05349c8b4099494475cd10',
+			3,
+			'1234567890123456',
+			'Sukoharjo',
+			'1990-04-28',
+			0,
+			1
+		),
+		(
+			5,
+			'Andi Pratiknyo',
+			'180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e',
+			'180348f5b22db17be014d5c1cb8151c858267cb44819e5460a7ae2528b91680e',
+			5,
+			'1234567890123456',
+			'Tangerang',
+			'1970-07-25',
+			1,
+			2
+		),
+		(
+			6,
+			'Atika Shubert',
+			'7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964',
+			'7d8aa9ea7dfe7be0112d05cc946364aa9334f45ba30fbbe9e376a4bdb85a1964',
+			6,
+			'1234567890123456',
+			'Klaten',
+			'1981-02-13',
+			1,
+			2
+		),
+		(
+			7,
+			'Perkuat Akseina',
+			'c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69',
+			'c5957d4541f993f63104a756d2a8aa3fa360582b9e4379f38a4297fe815a9c69',
+			5,
+			'1234567890123456',
+			'Malang',
+			'1981-07-17',
+			0,
+			2
+		),
+		(
+			8,
+			'Pracoyo Sejati Leno',
+			'043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16',
+			'043a43fa0703d0af5d80d84db2bd455c4eb9836e0ad34cc70ea3f451f04d6b16',
+			7,
+			'1234567890123456',
+			'Solo',
+			'1980-06-12',
+			0,
+			2
+		),
+		(
+			9,
+			'Puji Kaesthi',
+			'8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951',
+			'8c87f6ec99f742cf462a8c121dbdae4a48fb666cbb002094f6572cd6c1adb951',
+			8,
+			'1234567890123456',
+			'Solo',
+			'1986-01-27',
+			1,
+			2
+		),
+		(
+			10,
+			'Putri Rimba Manangsang',
+			'997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59',
+			'997af0fb6c844069db0e17d37b90e4e44314c5a84c2187f35ca4e45f82e66d59',
+			8,
+			'1234567890123456',
+			'Mataram',
+			'1987-09-10',
+			1,
+			2
+		),
+		(
+			11,
+			'Sopan Sumangkir',
+			'b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e',
+			'b2865123894a3ed061c3546de26914a00a1595a88254a993e98a47d67e41879e',
+			7,
+			'1234567890123456',
+			'Sibolga',
+			'1979-08-17',
+			0,
+			2
+		),
+		(
+			12,
+			'Urip Wanodyo Sejati',
+			'c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906',
+			'c7691d57aae84ccae80f8209a90e9f97170ade0d93559399105eb0db9b21a906',
+			8,
+			'1234567890123456',
+			'Yogya',
+			'1987-03-02',
+			1,
+			2
+		),
+		(
+			13,
+			'Fredddy Paloh',
+			'51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320',
+			'51eeed7251f3f56288ee554afaa1028b7fbc3daacc4a952be4ae8d18ddaf3320',
+			7,
+			'1234567890123456',
+			'Bogor',
+			'1970-10-16',
+			1,
+			2
+		);
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+DROP TABLE IF EXISTS `user_avatars`;
+CREATE TABLE `user_avatars` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`user` int(11) DEFAULT NULL,
+	`photo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`actived` tinyint(4) DEFAULT '0',
+	PRIMARY KEY (`id`),
+	KEY `user` (`user`),
+	CONSTRAINT `user_avatars_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Dump completed on 2019-07-20  2:04:56
+INSERT INTO `user_avatars`
+	VALUES 
+		(1,1,'joko_wandyatmono.jpg',0),
+		(2,2,'lani_husadawati.jpg',0),
+		(3,3,'wongso_hermanto.jpg',0),
+		(4,4,'yusnita_sri_sundari.jpg',0),
+		(5,5,'andi_pratiknyo.jpg',0),
+		(6,6,'atika_shubert.jpg',0),
+		(7,7,'perkuat_akseina.jpg',0),
+		(8,8,'pracoyo_sejati_leno.jpg',0),
+		(9,9,'puji_kaesthi.jpg',0),
+		(10,10,'putri_rimba_manangsang.jpg',0),
+		(11,11,'sopan_sumangkir.jpg',0),
+		(12,12,'urip_wanodyo_sejati.jpg',0),
+		(13,13,'freddy_paloh.jpg',0);
+UNLOCK TABLES;

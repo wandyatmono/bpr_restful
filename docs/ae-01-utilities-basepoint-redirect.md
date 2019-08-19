@@ -342,13 +342,6 @@ Semua base-point yang sudah ada, langsung di arahkan ke `routes.html`
 
 4. Done!
 
-    Base-point URL
-
-    <p align="center">
-        <img src="./figures/ae-01-d-utilities-basepoint.png" width="100%" />
-        <br />Figure: ae-01-d-utilities-basepoint.png
-    </p>
-
 `Jum'at, 19 Juli 2019`
 
 **`20:44`**

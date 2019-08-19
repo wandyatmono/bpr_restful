@@ -4,7 +4,7 @@ var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'emd230661',
-    database: 'bpr'
+    database: 'bpr_users'
 
 });
 

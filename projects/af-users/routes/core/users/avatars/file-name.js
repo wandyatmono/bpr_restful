@@ -5,7 +5,7 @@ var db = require('../../../../connection'),
 
 module.exports = (req, res) => {
     query = 'SELECT * ' +
-        'FROM bpr.avatars AS a ' +
+        'FROM role_avatars AS a ' +
         'WHERE a.user = ' + req.params.id + ';';
     db.query(
         query, function (error, rows, fields) {

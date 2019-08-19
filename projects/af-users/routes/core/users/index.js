@@ -4,7 +4,10 @@ var users = require('express').Router(),
     all = require('./all.js'),
     allLimit = require('./all-pagination'),
     singleId = require('./single-id.js'),
-    avatars = require('./avatars');
+    avatars = require('./avatars'),
+    logs = require('./logs');
+
+users.use('/logs', logs);
 
 users.use('/avatars', avatars);
 
