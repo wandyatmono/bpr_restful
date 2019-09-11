@@ -1,5 +1,4 @@
-CREATE TABLE `users`
-(
+CREATE TABLE `users` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `name` varchar(100),
   `account` varchar(255),
@@ -18,8 +17,7 @@ CREATE TABLE `users`
   `online` tinyint(1)
 );
 
-CREATE TABLE `user_logs`
-(
+CREATE TABLE `user_logs` (
   `id` bigint(20) PRIMARY KEY NOT NULL,
   `uuid` varchar(36),
   `user` int(11),
@@ -27,8 +25,7 @@ CREATE TABLE `user_logs`
   `hidden` tinyint(1)
 );
 
-CREATE TABLE `user_roles`
-(
+CREATE TABLE `user_roles` (
   `id` int(11) PRIMARY KEY NOT NULL,
   `native` varchar(100),
   `name` varchar(100)
@@ -37,4 +34,3 @@ CREATE TABLE `user_roles`
 ALTER TABLE `users` ADD FOREIGN KEY (`role`) REFERENCES `user_roles` (`id`);
 
 ALTER TABLE `user_logs` ADD FOREIGN KEY (`user`) REFERENCES `users` (`id`);
-

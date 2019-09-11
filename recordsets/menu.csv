@@ -1,0 +1,12 @@
+group_id,item,route,rights,name,icon
+1,2,authorities,ro,Autoritas,authorities.png
+1,1,role-structure,ro,"Struktur Peran",role-structure.png
+1,4,delegation,ro,Delegasi,delegation.png
+1,3,registration,ro,Registrasi,registration.png
+2,9,personal-achievement-report,ro,"Laporan Pencapaian Pribadi",personal-achiement-report.png
+2,8,personal-mobility-report,ro,"Laporan Mobilitas Pribadi",personal-mobility-report.png
+2,7,taskforce-mobility-report,ro,"Laporan Mobilitas Gugus Tugas",taskforce-mobility-report.png
+2,5,marketing-report,ro,"Laporan Pemasaran",marketing-report.png
+3,12,intercom,rw,Interkom,intercom.png
+3,11,command-chains,rw,"Rantai Komando",command-chains.png
+3,10,profile,rw,Profil,profile.png
