@@ -6,7 +6,10 @@ var users = require('express').Router(),
     singleId = require('./single-id.js'),
     avatars = require('./avatars'),
     logs = require('./logs'),
-    roles = require('./roles');
+    roles = require('./roles'),
+    sign = require('./sign');
+
+users.use('/sign', sign);
 
 users.use('/roles', roles);
 

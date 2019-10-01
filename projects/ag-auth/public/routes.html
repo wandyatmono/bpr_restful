@@ -99,25 +99,25 @@
 			<div class="flex">
 				<div class="continue"></div>
 				<div class="space"></div>
-				<div class="end">/roles</div>
+				<div class="sibling">/roles</div>
 			</div>
 			<div class="flex">
 				<div class="continue"></div>
 				<div class="space"></div>
-				<div class="space"></div>
+				<div class="continue"></div>
 				<div class="end">/menu</div>
 			</div>
 			<div class="flex">
 				<div class="continue"></div>
 				<div class="space"></div>
+				<div class="continue"></div>
 				<div class="space"></div>
-				<div class="space"></div>
-				<div class="sibling">/class</div>
+				<div class="sibling">/group<span>(get-group.js/get)</span></div>
 			</div>
 			<div class="flex">
 				<div class="continue"></div>
 				<div class="space"></div>
-				<div class="space"></div>
+				<div class="continue"></div>
 				<div class="space"></div>
 				<div class="continue"></div>
 				<div class="end">/:role-id</div>
@@ -125,12 +125,33 @@
 			<div class="flex">
 				<div class="continue"></div>
 				<div class="space"></div>
+				<div class="continue"></div>
 				<div class="space"></div>
-				<div class="space"></div>
-				<div class="end">/:role-id</div>
+				<div class="end">/:role-id<span>(get-menu.js/get)</span></div>
 			</div>
-
-			
+			<div class="flex">
+				<div class="continue"></div>
+				<div class="space"></div>
+				<div class="end">/sign</div>
+			</div>
+			<div class="flex">
+				<div class="continue"></div>
+				<div class="space"></div>
+				<div class="space"></div>
+				<div class="sibling">/:in/:account/:password/:footprint<span>(in.js/post)</span></div>
+			</div>
+			<div class="flex">
+				<div class="continue"></div>
+				<div class="space"></div>
+				<div class="space"></div>
+				<div class="sibling">/:out/:account/:password/:footprint<span>(out.js/post)</span></div>
+			</div>
+			<div class="flex">
+				<div class="continue"></div>
+				<div class="space"></div>
+				<div class="space"></div>
+				<div class="end">/:email/:account/:password/:footprint<span>(email.js/post)</span></div>
+			</div>
 			<div class="end">/utilities</div>
 			<div class="flex">
 				<div class="space"></div>

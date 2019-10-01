@@ -4,7 +4,7 @@ var db = require('../../../../../connection');
 
 module.exports = (req, res) => {
     var sql = 'SELECT ' +
-        'rdg.id AS group_id, rd.item, rdl.route, rd.rights, rdl.name, rdl.icon ' +
+        'rdg.id AS id, rd.item, rdl.route, rd.rights, rdl.name, rdl.icon, rdl.explanation ' +
         'FROM role_duties AS rd ' +
         'JOIN role_duty_list AS rdl ' +
         'ON rd.role = ? ' +
